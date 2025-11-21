@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Julekalender – Forhåndsvisning</title>
+  <style>
+    :root { --bg:#0c111b; --card:#101827; --accent:#e74c3c; --text:#eef2f7; --muted:#94a3b8; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:radial-gradient(1200px 600px at 50% -200px,#1b2437,var(--bg));min-height:100dvh}
+    .container{width:min(1100px,92%);margin:0 auto}
+    header{text-align:center;padding:1.25rem 0 .5rem}
+    header h1{margin:0 0 .25rem;font-weight:800}
+    header p{color:var(--muted);margin:0}
+    .toolbar{display:flex;gap:.75rem;align-items:center;justify-content:center;margin:.5rem 0 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px;padding:16px 0 60px}
+    .card{background:linear-gradient(180deg,#182237,#111827);border:1px solid #1f2a44;border-radius:16px;padding:18px;position:relative;box-shadow:0 4px 24px rgba(0,0,0,.25);transition:transform .15s ease,box-shadow .15s ease;cursor:pointer}
+    .card:hover{transform:translateY(-4px);box-shadow:0 10px 36px rgba(0,0,0,.35)}
+    .card h3{margin:0;font-size:1.15rem}
+    .card .date{color:var(--muted);font-size:.9rem;margin-top:6px}
+    .lock{position:absolute;right:12px;top:10px;font-size:1.2rem;color:#f59e0b}
+    .card.locked{opacity:.7;filter:grayscale(.15)}
+    .card.openable{border-color:#3454d1}
+    .card.today{outline:2px dashed #22c55e}
+    .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.5);padding:16px}
+    .modal.hidden{display:none}
+    .modal-content{background:var(--card);border:1px solid #263453;border-radius:18px;width:min(760px,96%);padding:18px;position:relative}
+    .modal-content img{width:100%;border-radius:12px;margin:10px 0;background:#0b1220}
+    .close{position:absolute;right:18px;top:10px;background:transparent;color:var(--text);border:none;font-size:1.6rem;cursor:pointer}
+    .btns{display:flex;gap:10px;margin-top:10px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#1db954;color:#fff;text-decoration:none;font-weight:700}
+    #btn-apple{background:#333}
+    .snow::before,.snow::after{content:"";position:fixed;left:0;top:-50px;width:100%;height:100%;pointer-events:none;background-image:radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent 51%),radial-gradient(3px 3px at 100px 80px,#fff 50%,transparent 51%),radial-gradient(2px 2px at 200px 50px,#fff 50%,transparent 51%),radial-gradient(3px 3px at 300px 10px,#fff 50%,transparent 51%),radial-gradient(2px 2px at 400px 40px,#fff 50%,transparent 51%);background-size:400px 200px;animation:snow 10s linear infinite;opacity:.75}
+    .snow::after{animation-duration:16s;opacity:.5;filter:blur(1px)}
+    @keyframes snow{to{transform:translateY(200px)}}
+    .tiny{font-size:.85rem;color:var(--muted);text-align:center;margin:-6px 0 8px}
+      /* --- Responsivitet og tilgjengelighet – mobilforbedringer --- */
+    @media (max-width: 380px) {
+      .grid { gap: 12px; }
+      .card { padding: 16px; }
+      .card h3 { font-size: 1rem; }
+      .btn { padding: 12px 14px; font-size: 0.95rem; }
+    }
+    @media (max-width: 480px) {
+      .close { font-size: 2rem; right: 12px; top: 6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .snow::before, .snow::after { animation: none; }
+    }
+    @supports (padding: max(0px)) {
+      body { padding-bottom: env(safe-area-inset-bottom); }
+    }
+  </style>
+</head>
+<body>
+  <div class="snow"></div>
+  <header class="container">
+    <h1>🎄 Julekalender – Forhåndsvisning</h1>
+    <p>Statisk demo med låste/åpne luker og modal med bilde/tekst/lenker.</p>
+    <div class="toolbar">
+      <label for="preview">Forhåndsvis dag:&nbsp;</label>
+      <input id="preview" type="range" min="0" max="24" value="0" />
+      <span id="previewLabel">(0 = bruk dagens dato i Europe/Oslo)</span>
+    </div>
+    <div class="tiny">Tips: Dra slideren til 24 for å åpne alle lukene i demoen.</div>
+  </header>
+  <main class="container">
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <button class="close" id="closeBtn" aria-label="Lukk">×</button>
+      <h2 id="modal-title"></h2>
+      <img id="modal-image" alt="" loading="lazy"/>
+      <p id="modal-text"></p>
+      <div class="btns">
+        <a id="btn-apple" class="btn" target="_blank" rel="noopener"> Music</a>
+        <a id="btn-spotify" class="btn" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Generer 24 demo-oppføringer
+    const placeholder = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="450">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#243b55" offset="0"/>
+            <stop stop-color="#141e30" offset="1"/>
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#g)"/>
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" fill="#e5e7eb">Julebilde</text>
+      </svg>`);
+
+    const days = Array.from({length:24}, (_,i)=>{
+      const d = i+1;
+      return {
+        title: `${d}. desember`,
+        image: placeholder,
+        alt: `Julemotiv ${d}`,
+        text: `Dette er en eksempeltekst for luke ${d}. Bytt ut bilde/tekst/lenker når du bruker malen.`,
+        apple: 'https://music.apple.com/',
+        spotify: 'https://open.spotify.com/'
+      }
+    });
+
+    function getOsloDay() {
+      const fmt = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' });
+      const parts = fmt.formatToParts(new Date());
+      const m = Number(parts.find(p => p.type === 'month').value);
+      const d = Number(parts.find(p => p.type === 'day').value);
+      if (m !== 12) return 0; // før desember → alt låst
+      return Math.min(d, 24);
+    }
+
+    const grid = document.getElementById('grid');
+    const modal = document.getElementById('modal');
+    const closeBtn = document.getElementById('closeBtn');
+    const preview = document.getElementById('preview');
+    const previewLabel = document.getElementById('previewLabel');
+
+    let openDay = 0;
+
+    function render() {
+      grid.innerHTML = '';
+      const showDay = Number(preview.value) || getOsloDay();
+      openDay = showDay;
+      previewLabel.textContent = Number(preview.value) ? `(viser dag ${showDay})` : `(0 = bruk dagens dato i Europe/Oslo → dag ${showDay})`;
+
+      days.forEach((item, idx) => {
+        const day = idx + 1;
+        const card = document.createElement('button');
+        card.className = 'card';
+        card.setAttribute('aria-label', `Luke ${day}`);
+        card.innerHTML = `
+          <span class="lock" aria-hidden="true">${day <= showDay ? '🔔' : '🔒'}</span>
+          <h3>Luke ${String(day).padStart(2, '0')}</h3>
+          <div class="date">${item.title}</div>
+        `;
+        if (day > showDay) {
+          card.classList.add('locked');
+          card.disabled = true;
+        } else {
+          card.classList.add('openable');
+          if (day === showDay) card.classList.add('today');
+          card.addEventListener('click', () => openModal(day, item));
+        }
+        grid.appendChild(card);
+      });
+    }
+
+    function openModal(day, item) {
+      document.getElementById('modal-title').textContent = `Luke ${String(day).padStart(2, '0')}`;
+      const img = document.getElementById('modal-image');
+      img.src = item.image; img.alt = item.alt || `Bilde for luke ${day}`;
+      document.getElementById('modal-text').textContent = item.text || '';
+      const apple = document.getElementById('btn-apple');
+      const spotify = document.getElementById('btn-spotify');
+      if (item.apple) { apple.href = item.apple; apple.style.display = 'inline-block'; } else { apple.style.display = 'none'; }
+      if (item.spotify) { spotify.href = item.spotify; spotify.style.display = 'inline-block'; } else { spotify.style.display = 'none'; }
+      modal.classList.remove('hidden');
+    }
+    function closeModal(){ modal.classList.add('hidden'); }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target.id==='modal') closeModal(); });
+    preview.addEventListener('input', render);
+
+    render();
+  </script>
+</body>
+</html>
