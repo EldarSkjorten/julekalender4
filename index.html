@@ -144,5 +144,50 @@
 
     (async()=>{const d=await loadDays();render(d);})();
   </script>
+  async function validateDays() {
+  try {
+    const response = await fetch('data/days.json');
+    if (!response.ok) {
+      console.error('Kunne ikke laste data for kalenderen.');
+      return;
+    }
+    const data = await response.json();
+    let missing = [];
+    for (const day of data) {
+      if (day.image) {
+        const res = await fetch(day.image, { method: 'HEAD' });
+        if (!res.ok) {
+          missing.push(day.image);
+        }
+      }
+    }
+    if (missing.length) {
+      console.warn('Fant ikke disse bildefilene:', missing);
+      alert('Advarsel: Noen bildefiler mangler! Se konsollen for detaljer.');
+    } else {
+      console.log('Alle bilder funnet.');
+    }
+  } catch (err) {
+    console.error('Feil under validering:', err);
+  }
+}
+
+async function loadDays() {
+  const response = await fetch('data/days.json');
+  if (!response.ok) {
+    console.error('Kunne ikke laste data for kalenderen.');
+    return [];
+  }
+  const data = await response.json();
+  return data;
+}
+
+(async()=>{
+  const days = await loadDays();
+  render(days);
+  // Kjør validering etter at data er lastet
+  validateDays();
+})();
+
 </body>
 </html>
