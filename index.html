@@ -10,12 +10,9 @@
     :root {
       --bg:#0c111b; --card:#101827; --accent:#e74c3c; --text:#eef2f7; --muted:#94a3b8;
       --focus:#22c55e; --brand:#3454d1; --title-font:'Mountains of Christmas', cursive;
-      --tile-red-1:#b91c1b;
-      --tile-red-2:#b91c1b;
-      --tile-red-1-hover:#da1717;
-      --tile-red-2-hover:#da1717;
-      --tile-red-dim-1:#4f1c1b;
-      --tile-red-dim-2:#34100f;
+      --tile-red-1:#b91c1b; --tile-red-2:#b91c1b;
+      --tile-red-1-hover:#da1717; --tile-red-2-hover:#da1717;
+      --tile-red-dim-1:#4f1c1b; --tile-red-dim-2:#34100f;
       --tile-border:#6b1f1c;
     }
     *{box-sizing:border-box}
@@ -40,42 +37,30 @@
       transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
       cursor:pointer;
     }
-    .card.locked{
-      background:linear-gradient(145deg,var(--tile-red-dim-1),var(--tile-red-dim-2));
-      filter:saturate(.95);
-    }
+    .card.locked{ background:linear-gradient(145deg,var(--tile-red-dim-1),var(--tile-red-dim-2)); filter:saturate(.95); }
+    @media (hover:hover){ .card:not(.locked):hover{ transform:scale(1.02); box-shadow:0 14px 36px rgba(0,0,0,.35); background:linear-gradient(145deg,var(--tile-red-1-hover),var(--tile-red-2-hover)); } }
+    .card .num{ font-family:var(--title-font); font-size:2.6rem; line-height:1; color:#fff; margin:6px 0 0 0; text-shadow:0 1px 0 rgba(0,0,0,.35); }
+    .card.locked .num{ opacity:.6; filter:brightness(.85) }
+    .status{ display:flex; align-items:center; justify-content:center; margin-bottom:8px }
+    .status svg{ width:28px; height:28px; stroke:rgba(255,255,255,.95); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+    .card.locked .status svg{ stroke:rgba(255,255,255,.7) }
 
-    @media (hover:hover){
-      .card:not(.locked):hover{
-        transform:scale(1.02);
-        box-shadow:0 14px 36px rgba(0,0,0,.35);
-        background:linear-gradient(145deg,var(--tile-red-1-hover),var(--tile-red-2-hover));
-      }
-    }
-
-    .card .num{
-      font-family:var(--title-font);
-      font-size:2.6rem;line-height:1;color:#fff;
-      margin:6px 0 0 0;text-shadow:0 1px 0 rgba(0,0,0,.35);
-    }
-    .card.locked .num{opacity:.6;filter:brightness(.85)}
-
-    .status{display:flex;align-items:center;justify-content:center;margin-bottom:8px}
-    .status svg{
-      width:28px;height:28px;stroke:rgba(255,255,255,.95);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
-    }
-    .card.locked .status svg{stroke:rgba(255,255,255,.7)}
-
-    /* Modal (åpne luker) */
+    /* Modal */
     .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.5);padding:16px;z-index:50}
     .modal.hidden{display:none}
-    .modal-content{background:var(--card);border:1px solid #263453;border-radius:18px;width:min(760px,96%);padding:18px;position:relative;color:var(--text)}
-    .modal-content img{width:100%;border-radius:12px;margin:10px 0;background:#0b1220;display:block}
-    .close{position:absolute;right:18px;top:10px;background:transparent;color:#fff;border:none;font-size:1.8rem;cursor:pointer;line-height:1}
-    .close:focus-visible{outline:3px solid var(--focus);border-radius:8px}
-    .btns{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#1db954;color:#fff;text-decoration:none;font-weight:700}
-    #btn-apple{background:#333}
+    .modal-content{background:var(--card);border:1px solid #263453;border-radius:18px;width:min(720px,96%);padding:18px;position:relative;color:var(--text);display:flex;flex-direction:column;gap:12px;max-height:90dvh;overflow:auto}
+    .modal-header{display:flex;align-items:center;justify-content:center}
+    .modal-title{font-family:var(--title-font);font-size:1.8rem;margin:0}
+    @media (max-width:420px){ .modal-title{ font-size:1.6rem } }
+    .modal-image{width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin:4px 0;background:#0b1220}
+    .modal-text{font-size:1rem;line-height:1.5;margin:0}
+    .btns{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;justify-content:flex-start}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#fff;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+    .btn svg{width:18px;height:18px;fill:currentColor}
+    .btn-apple{background:#fa233b}
+    .btn-spotify{background:#1db954}
+    .btn-secondary{background:#374151}
+    .btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 
     .snow::before,.snow::after{content:"";position:fixed;left:0;top:-50px;width:100%;height:100%;pointer-events:none;background-image:radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent 51%),radial-gradient(3px 3px at 100px 80px,#fff 50%,transparent 51%),radial-gradient(2px 2px at 200px 50px,#fff 50%,transparent 51%),radial-gradient(3px 3px at 300px 10px,#fff 50%,transparent 51%),radial-gradient(2px 2px at 400px 40px,#fff 50%,transparent 51%);background-size:400px 200px;animation:snow 10s linear infinite;opacity:.75}
     .snow::after{animation-duration:16s;opacity:.5;filter:blur(1px)}
@@ -94,13 +79,19 @@
 
   <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
     <div class="modal-content">
-      <button class="close" id="closeBtn" aria-label="Lukk">×</button>
-      <h2 id="modal-title"></h2>
-      <img id="modal-image" alt="" loading="lazy" />
-      <p id="modal-text"></p>
+      <div class="modal-header"><h2 id="modal-title" class="modal-title"></h2></div>
+      <img id="modal-image" class="modal-image" alt="" loading="lazy" />
+      <p id="modal-text" class="modal-text"></p>
       <div class="btns">
-        <a id="btn-apple" class="btn" target="_blank" rel="noopener"> Music</a>
-        <a id="btn-spotify" class="btn" target="_blank" rel="noopener">Spotify</a>
+        <a id="btn-apple" class="btn btn-apple" target="_blank" rel="noopener" aria-label="Åpne i Apple Music">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 2.4c-.8.5-1.6 1.4-1.9 2.4-.4 1.2-.3 2.3.2 3 .5.8 1.3 1.4 2.4 1.7-.1.9-.4 1.8-.9 2.7-1.1 2.2-2.9 3.7-4.9 3.7s-3.8-1.5-4.9-3.7c-.7-1.4-1.1-3-.9-4.3 1.4-.1 2.6-.6 3.4-1.5.8-.8 1.3-2 1.4-3.4 1.1-.2 2.1 0 3 .4.8.4 1.4.9 1.9 1.6.3-.9.8-1.7 1.5-2.4Z"/></svg>
+          Apple Music
+        </a>
+        <a id="btn-spotify" class="btn btn-spotify" target="_blank" rel="noopener" aria-label="Åpne i Spotify">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.6a.8.8 0 0 1-1.1.3c-3-1.8-6.9-2.2-11.3-1.1a.8.8 0 0 1-.4-1.5c4.9-1.3 9.2-.8 12.6 1.2.4.2.5.7.2 1.1Zm1.5-3.2a.9.9 0 0 1-1.2.3c-3.4-2-8.6-2.6-12.6-1.3a.9.9 0 1 1-.5-1.7c4.6-1.3 10.3-.6 14.3 1.7.4.2.6.7.4 1ZM18.1 9a1 1 0 0 1-1.3.4c-3.9-2.3-9.9-2.5-13.5-1.3a1 1 0 1 1-.6-1.9c4.2-1.3 10.9-1 15.3 1.6.5.2.6.8.4 1.2Z"/></svg>
+          Spotify
+        </a>
+        <button id="btn-close" class="btn btn-secondary" type="button">Lukk</button>
       </div>
     </div>
   </div>
@@ -119,7 +110,7 @@
 
     const grid=document.getElementById('grid');
     const modal=document.getElementById('modal');
-    const closeBtn=document.getElementById('closeBtn');
+    const btnClose=document.getElementById('btn-close');
 
     function render(days){
       grid.innerHTML='';
@@ -129,22 +120,27 @@
         card.className='card';
         const displayNum = day.toString();
         const icon = day<=FIXED_TEST_DAY
-          ? `<span class=\"status\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 2c-.8 0-1.4.6-1.4 1.4v1.6c-2.5.6-4.6 2.8-4.6 5.5 0 3.4-1.4 5-2 5.4h16c-.6-.4-2-2-2-5.4 0-2.7-2.1-4.9-4.6-5.5V3.4c0-.8-.6-1.4-1.4-1.4zM12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z\"/></svg></span>`
-          : `<span class=\"status\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><rect x=\"5\" y=\"10\" width=\"14\" height=\"10\" rx=\"2\"/><path d=\"M8 10V8a4 4 0 0 1 8 0v2\"/></svg></span>`;
-        card.innerHTML = `${icon}<span class=\"num\">${displayNum}</span>`;
+          ? `<span class="status" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c-.8 0-1.4.6-1.4 1.4v1.6c-2.5.6-4.6 2.8-4.6 5.5 0 3.4-1.4 5-2 5.4h16c-.6-.4-2-2-2-5.4 0-2.7-2.1-4.9-4.6-5.5V3.4c0-.8-.6-1.4-1.4-1.4zM12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z"/></svg></span>`
+          : `<span class="status" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V8a4 4 0 0 1 8 0v2"/></svg></span>`;
+        card.innerHTML = `${icon}<span class="num">${displayNum}</span>`;
         if(day>FIXED_TEST_DAY){card.classList.add('locked');card.disabled=true;}else{card.addEventListener('click',()=>openModal(day,d));}
         grid.appendChild(card);
       });
     }
 
     function openModal(day,item){
-      document.getElementById('modal-title').textContent=`Luke ${day}`;
+      document.getElementById('modal-title').textContent = item.title || `Luke ${day}`;
       const img=document.getElementById('modal-image');
-      img.src=item.image;
-      document.getElementById('modal-text').textContent=item.text;
+      img.src=item.image; img.alt = item.alt || item.title || `Bilde for ${day}. desember`;
+      document.getElementById('modal-text').textContent=item.text || '';
+      const a = document.getElementById('btn-apple');
+      const s = document.getElementById('btn-spotify');
+      if(item.apple){ a.href=item.apple; a.style.display='inline-flex'; } else { a.style.display='none'; }
+      if(item.spotify){ s.href=item.spotify; s.style.display='inline-flex'; } else { s.style.display='none'; }
       modal.classList.remove('hidden');
     }
-    closeBtn.addEventListener('click',()=>modal.classList.add('hidden'));
+    btnClose.addEventListener('click',()=>modal.classList.add('hidden'));
+    modal.addEventListener('click', (e)=>{ if(e.target.id==='modal') modal.classList.add('hidden'); });
 
     (async()=>{const d=await loadDays();render(d);})();
   </script>
