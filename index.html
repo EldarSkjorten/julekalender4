@@ -237,7 +237,7 @@
       margin-bottom:4px;
     }
     /* Statisk snø i headingen */
-    .modal-banner::before,
+        .modal-banner::before,
     .modal-banner::after{
       content:"";
       position:absolute;
@@ -246,15 +246,23 @@
       width:100%;
       height:140%;
       background-image:
-        radial-gradient(2px 2px at 20px 30px,#fff 55%,transparent 56%),
-        radial-gradient(3px 3px at 140px 40px,#fff 55%,transparent 56%),
-        radial-gradient(2px 2px at 260px 80px,#fff 55%,transparent 56%),
-        radial-gradient(2px 2px at 380px 20px,#fff 55%,transparent 56%);
+        radial-gradient(2px 2px at 10% 20%, #fff 55%, transparent 56%),
+        radial-gradient(3px 3px at 30% 40%, #fff 55%, transparent 56%),
+        radial-gradient(2px 2px at 60% 25%, #fff 55%, transparent 56%),
+        radial-gradient(3px 3px at 80% 35%, #fff 55%, transparent 56%),
+        radial-gradient(2px 2px at 20% 70%, #fff 55%, transparent 56%),
+        radial-gradient(2px 2px at 50% 80%, #fff 55%, transparent 56%),
+        radial-gradient(3px 3px at 70% 65%, #fff 55%, transparent 56%),
+        radial-gradient(2px 2px at 90% 75%, #fff 55%, transparent 56%);
       background-size:320px 160px;
+      opacity:.7;
       pointer-events:none;
     }
-    .modal-banner::before{opacity:.7;}
-    .modal-banner::after{opacity:.4;filter:blur(1px);}
+    .modal-banner::after{
+      opacity:.4;
+      filter:blur(1px);
+    }
+
 
     .modal-title{
       position:relative;
@@ -366,9 +374,13 @@
     const infoBtn = document.getElementById('info-btn');
     const infoClose = document.getElementById('info-close');
 
-    const INFO_TEXT =
-      "Her kan du skrive litt om hvordan kalenderen fungerer, for eksempel når lukene åpnes, " +
-      "og hvordan man bruker musikklenkene.";
+        const INFO_TEXT =
+      "Så gøy at du er inne i julekalenderen!\n\n" +
+      "Her får du et musikkstykke, eller en låt, hver dag fram til jul.\n\n" +
+      "Jeg fikk lyst til å prøve vibe coding, og dette er mitt første prosjekt. Selve programmeringen har ChatGPT stått for, og så har den og jeg testet fram og tilbake masse til det du ser her. Musikken og teksten er det så klart jeg som har funnet fram. Det var gøy å prøve dette!\n\n" +
+      "LITT OM MUSIKKEN:\n" +
+      "Jeg klarer sjelden å svare når noen spør hva slags musikk jeg liker. Kanskje fordi jeg ikke er så opptatt av hva slags musikk jeg hører? Jeg er nok ikke altetende, men det er mer opp til det enkelte stykket eller låten enn musikktypen.\n\n" +
+      "Her får du en salig blanding av ting jeg liker, men siden det snart er jul blir det mest av det snille og det vakre.";
 
     // Formatterer tekst til avsnitt (alternativ 3)
     function formatModalText(raw){
