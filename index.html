@@ -22,14 +22,7 @@
     }
 
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      -webkit-text-size-adjust:100%;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      color:var(--text);
-      background:radial-gradient(1200px 600px at 50% -200px,#1b2437,var(--bg));
-      min-height:100dvh;
-    }
+    body{margin:0;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:radial-gradient(1200px 600px at 50% -200px,#1b2437,var(--bg));min-height:100dvh}
 
     header{text-align:center;padding:18px 0 8px}
     header h1{font-family:var(--title-font);font-size:2.4rem;margin:0}
@@ -37,268 +30,58 @@
     @media (min-width:768px){header h1{font-size:2.8rem}}
 
     /* Feilbanner */
-    .banner{
-      display:none;
-      background:#7c2d12;
-      color:#fff;
-      padding:12px 16px;
-      border-radius:10px;
-      margin:14px auto;
-      max-width:900px;
-      text-align:center;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      font-size:.95rem;
-    }
+    .banner{display:none;background:#7c2d12;color:#fff;padding:12px 16px;border-radius:10px;margin:14px auto;max-width:900px;text-align:center;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;font-size:.95rem}
 
     /* Layout */
     .container{width:min(1100px,92%);margin:0 auto}
     main.container{padding:24px clamp(16px,4vw,28px) 80px}
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:32px;
-      padding:20px 0;
-    }
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:20px 0}
     @media (max-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
     @media (max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:380px){.grid{grid-template-columns:1fr}}
 
     /* Luker */
-    .card{
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      aspect-ratio:1/1;
-      border-radius:22px;
-      border:1.5px solid var(--tile-border);
-      background:linear-gradient(145deg,var(--tile-red-1),var(--tile-red-2));
-      box-shadow:
-        0 10px 24px rgba(0,0,0,.30),
-        inset 0 1px 0 rgba(255,255,255,.06),
-        inset 0 -1px 0 rgba(0,0,0,.25);
-      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
-      cursor:pointer;
-    }
-    .card.locked{
-      background:linear-gradient(145deg,var(--tile-red-dim-1),var(--tile-red-dim-2));
-      filter:saturate(.95);
-      cursor:not-allowed;
-    }
-    @media (hover:hover){
-      .card:not(.locked):hover{
-        transform:scale(1.02);
-        box-shadow:0 14px 36px rgba(0,0,0,.35);
-        background:linear-gradient(145deg,var(--tile-red-1-hover),var(--tile-red-2-hover));
-      }
-    }
+    .card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1;border-radius:22px;border:1.5px solid var(--tile-border);background:linear-gradient(145deg,var(--tile-red-1),var(--tile-red-2));box-shadow:0 10px 24px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(0,0,0,.25);transition:transform .18s ease, box-shadow .18s ease, background .18s ease;cursor:pointer}
+    .card.locked{background:linear-gradient(145deg,var(--tile-red-dim-1),var(--tile-red-dim-2));filter:saturate(.95);cursor:not-allowed}
+    @media (hover:hover){.card:not(.locked):hover{transform:scale(1.02);box-shadow:0 14px 36px rgba(0,0,0,.35);background:linear-gradient(145deg,var(--tile-red-1-hover),var(--tile-red-2-hover))}}
 
     /* Ikon (outline) over tallet */
     .status{display:flex;align-items:center;justify-content:center;margin-bottom:6px}
-    .status svg{
-      width:28px;
-      height:28px;
-      stroke:rgba(255,255,255,.95);
-      fill:none;
-      stroke-width:2.2;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-    }
+    .status svg{width:28px;height:28px;stroke:rgba(255,255,255,.95);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
     .card.locked .status svg{stroke:rgba(255,255,255,.7)}
 
     /* Tallet midtstilt, julefont */
-    .num{
-      font-family:var(--title-font);
-      font-size:2.6rem;
-      line-height:1;
-      color:#fff;
-      margin:6px 0 0 0;
-      text-shadow:0 1px 0 rgba(0,0,0,.35);
-    }
-    .card.locked .num{
-      opacity:.6;
-      filter:brightness(.85);
-    }
+    .num{font-family:var(--title-font);font-size:2.6rem;line-height:1;color:#fff;margin:6px 0 0 0;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+    .card.locked .num{opacity:.6;filter:brightness(.85)}
 
     /* Snø bak innholdet */
-    .snow{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-    }
-    .snow::before,
-    .snow::after{
-      content:"";
-      position:absolute;
-      left:0;
-      top:-50px;
-      width:100%;
-      height:100%;
-      background-image:
-        radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent 51%),
-        radial-gradient(3px 3px at 100px 80px,#fff 50%,transparent 51%),
-        radial-gradient(2px 2px at 200px 50px,#fff 50%,transparent 51%),
-        radial-gradient(3px 3px at 300px 10px,#fff 50%,transparent 51%),
-        radial-gradient(2px 2px at 400px 40px,#fff 50%,transparent 51%);
-      background-size:400px 200px;
-      animation:snow 10s linear infinite;
-      opacity:.75;
-    }
-    .snow::after{
-      animation-duration:16s;
-      opacity:.5;
-      filter:blur(1px);
-    }
+    .snow{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .snow::before,.snow::after{content:"";position:absolute;left:0;top:-50px;width:100%;height:100%;background-image:radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent 51%),radial-gradient(3px 3px at 100px 80px,#fff 50%,transparent 51%),radial-gradient(2px 2px at 200px 50px,#fff 50%,transparent 51%),radial-gradient(3px 3px at 300px 10px,#fff 50%,transparent 51%),radial-gradient(2px 2px at 400px 40px,#fff 50%,transparent 51%);background-size:400px 200px;animation:snow 10s linear infinite;opacity:.75}
+    .snow::after{animation-duration:16s;opacity:.5;filter:blur(1px)}
     @keyframes snow{to{transform:translateY(200px)}}
 
-    /* Info-knapp */
-    .info-wrap{
-      display:flex;
-      justify-content:center;
-      margin-top:10px;
-    }
-    .info-btn{
-      width:40px;
-      height:40px;
-      border-radius:999px;
-      border:1.5px solid var(--muted);
-      background:rgba(12,17,27,.55);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-    .info-btn-inner{
-      width:22px;
-      height:22px;
-      border-radius:999px;
-      border:1.5px solid rgba(255,255,255,.85);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      font-size:13px;
-      font-weight:600;
-      color:rgba(226,232,240,.9);
-    }
-    @media (hover:hover){
-      .info-btn:hover{
-        transform:translateY(-1px);
-        background:rgba(15,23,42,.8);
-        box-shadow:0 6px 14px rgba(0,0,0,.6);
-      }
-    }
-    .info-btn:focus-visible{
-      outline:3px solid #22c55e;
-      outline-offset:2px;
-    }
+        .info-wrap{display:flex;justify-content:center;margin-top:10px;}
+    .info-btn{width:40px;height:40px;border-radius:999px;border:1.5px solid var(--muted);background:rgba(12,17,27,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;}
+    .info-btn-inner{width:22px;height:22px;border-radius:999px;border:1.5px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;font-size:13px;font-weight:600;color:rgba(226,232,240,.9);} 
+    @media (hover:hover){.info-btn:hover{transform:translateY(-1px);background:rgba(15,23,42,.8);box-shadow:0 6px 14px rgba(0,0,0,.6);}}
+    .info-btn:focus-visible{outline:3px solid #22c55e;outline-offset:2px;}
 
     header,main{position:relative;z-index:1}
 
     /* Modal for åpne luker */
-    .modal{
-      position:fixed;
-      inset:0;
-      display:grid;
-      place-items:center;
-      background:rgba(0,0,0,.55);
-      padding:16px;
-      z-index:10;
-    }
+    .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.55);padding:16px;z-index:10}
     .modal.hidden{display:none}
-    .modal-content{
-      background:var(--card);
-      border:1px solid #263453;
-      border-radius:18px;
-      width:min(720px,96%);
-      padding:18px;
-      position:relative;
-      color:var(--text);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      max-height:90dvh;
-      overflow:auto;
-      box-shadow:0 18px 40px rgba(0,0,0,.6);
-    }
+    .modal-content{background:var(--card);border:1px solid #263453;border-radius:18px;width:min(720px,96%);padding:18px;position:relative;color:var(--text);display:flex;flex-direction:column;gap:12px;max-height:90dvh;overflow:auto;box-shadow:0 18px 40px rgba(0,0,0,.6)}
     .modal-header{display:flex;align-items:center;justify-content:center}
-    .modal-banner{
-      width:100%;
-      border-radius:14px;
-      padding:12px 16px;
-      background:linear-gradient(145deg,var(--tile-red-1),var(--tile-red-2));
-      position:relative;
-      overflow:hidden;
-      box-shadow:0 8px 20px rgba(0,0,0,.35);
-      margin-bottom:4px;
-    }
-    /* Statisk snø i headingen */
-            .modal-banner::before,
-    .modal-banner::after{
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      width:100%;
-      height:100%;
-      background-image:
-        radial-gradient(2px 2px at 10% 20%, #fff 55%, transparent 56%),
-        radial-gradient(3px 3px at 30% 45%, #fff 55%, transparent 56%),
-        radial-gradient(2px 2px at 55% 25%, #fff 55%, transparent 56%),
-        radial-gradient(3px 3px at 80% 35%, #fff 55%, transparent 56%),
-        radial-gradient(2px 2px at 20% 70%, #fff 55%, transparent 56%),
-        radial-gradient(2px 2px at 45% 80%, #fff 55%, transparent 56%),
-        radial-gradient(3px 3px at 70% 60%, #fff 55%, transparent 56%),
-        radial-gradient(2px 2px at 90% 75%, #fff 55%, transparent 56%);
-      background-size:320px 160px;
-      opacity:.7;
-      pointer-events:none;
-    }
-    .modal-banner::after{
-      opacity:.4;
-      filter:blur(1px);
-    }
-
-
-
-    .modal-title{
-      position:relative;
-      z-index:1;
-      font-family:var(--title-font);
-      font-size:1.7rem;
-      margin:0;
-      text-align:center;
-      color:#fff;
-      text-shadow:0 1px 0 rgba(0,0,0,.35);
-    }
+    .modal-banner{width:100%;border-radius:14px;padding:12px 16px;background:linear-gradient(145deg,var(--tile-red-1),var(--tile-red-2));position:relative;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.35);margin-bottom:4px}
+    .modal-title{position:relative;z-index:1;font-family:var(--title-font);font-size:1.7rem;margin:0;text-align:center;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.35)}
     @media (max-width:420px){.modal-title{font-size:1.5rem}}
-
     .modal-text{font-size:1rem;line-height:1.5;margin:0}
     .modal-text p{margin:0 0 0.7em;}
-
-    .btns{
-      display:flex;
-      gap:10px;
-      margin-top:6px;
-      flex-wrap:wrap;
-      justify-content:flex-start;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:12px;
-      color:#fff;
-      text-decoration:none;
-      font-weight:700;
-      border:none;
-      cursor:pointer;
-    }
+    .btns{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;justify-content:flex-start}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#fff;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+    .btn svg{width:18px;height:18px;fill:currentColor}
     .btn-apple{background:#fa233b}
     .btn-spotify{background:#1db954}
     .btn-secondary{background:#374151}
@@ -336,17 +119,16 @@
       <p id="modal-text" class="modal-text"></p>
       <div class="btns">
         <a id="btn-apple" class="btn btn-apple" target="_blank" rel="noopener" aria-label="Åpne i Apple Music">
-          Apple Music
-        </a>
-        <a id="btn-spotify" class="btn btn-spotify" target="_blank" rel="noopener" aria-label="Åpne i Spotify">
-          Spotify
-        </a>
+  Apple Music
+</a>
+<a id="btn-spotify" class="btn btn-spotify" target="_blank" rel="noopener" aria-label="Åpne i Spotify">
+  Spotify
+</a>
         <button id="btn-close" class="btn btn-secondary" type="button">Lukk</button>
       </div>
     </div>
   </div>
 
-  <!-- Info-modal -->
   <div id="info-modal" class="modal hidden" role="dialog" aria-modal="true">
     <div class="modal-content">
       <div class="modal-header">
@@ -369,28 +151,28 @@
     const btnApple = document.getElementById('btn-apple');
     const btnSpotify = document.getElementById('btn-spotify');
     const btnClose = document.getElementById('btn-close');
-
     const infoModal = document.getElementById('info-modal');
     const infoText = document.getElementById('info-text');
     const infoBtn = document.getElementById('info-btn');
     const infoClose = document.getElementById('info-close');
 
-       const INFO_TEXT = `Så gøy at du er inne i julekalenderen!
+    const INFO_TEXT = `Så gøy at du er inne i julekalenderen!
 
-      Her får du et musikkstykke, eller en låt, hver dag fram til jul.
+Her får du et musikkstykke, eller en låt, hver dag fram til jul.
 
-      Jeg fikk lyst til å prøve vibe coding, og dette er mitt første prosjekt. Selve programmeringen har ChatGPT stått for, også har den og jeg testet masse fram og tilbake til det du ser her. Musikken og teksten er det så klart jeg som har funnet fram. Det var gøy å prøve dette!
+Jeg fikk lyst til å prøve vibe coding, og dette er mitt første prosjekt. Selve programmeringen har ChatGPT stått for, også har den og jeg testet fram og tilbake masse til det du ser her. Musikken og teksten er det så klart jeg som har funnet fram. Det var gøy å prøve dette!
 
-      LITT OM MUSIKKEN:
-      Jeg klarer sjelden å svare når noen spør hva slags musikk jeg liker. Kanskje fordi jeg ikke er så opptatt av hva slags musikk jeg hører? Jeg er ikke altetende, men det kommer an på det enkelte stykket/låten, mer enn musikktypen.
+LITT OM MUSIKKEN:
+Jeg klarer sjelden å svare når noen spør hva slags musikk jeg liker. Kanskje fordi jeg ikke er så opptatt av hva slags musikk jeg hører? Jeg er nok ikke altetende, men det er mer opp til det enkelte stykket eller låten enn musikktypen.
 
-      Her får du en salig blanding av ting jeg kan like, men siden det snart er jul blir det mest av det snille og det vakre.`;
+Her får du en salig blanding av ting jeg liker, men siden det snart er jul blir det mest av det snille og det vakre.`;
 
+    // Formatterer tekst til avsnitt (alternativ 3)
     // Formatterer tekst til avsnitt (alternativ 3)
     function formatModalText(raw){
       if(!raw) return '';
 
-      // Escape HTML-tegn
+      // Escape HTML-tegn så vi ikke tolker <, > osv.
       const esc = raw
         .replace(/&/g,'&amp;')
         .replace(/</g,'&lt;')
@@ -399,7 +181,8 @@
       // Del i avsnitt på tomme linjer
       const paragraphs = esc.split(/\n\s*\n/);
 
-      // Lag <p>...</p>, og la enkel \n bli til <br>
+      // Lag <p>...</p> for hvert avsnitt
+      // og la enkel \n bli til <br>
       return paragraphs
         .map(function(p){
           return '<p>' + p.replace(/\n/g,'<br>') + '</p>';
@@ -409,22 +192,16 @@
 
     function showFriendlyError(){
       const el = document.getElementById('err');
-      el.textContent =
-        'Oisann, det er noe feil her. Send meg en melding, så jeg kan se på det! ' +
-        'I mellomtiden kan du synge en sang selv... 🎅🏼';
+      el.textContent = 'Oisann, det er noe feil her. Send meg en melding, så jeg kan se på det! I mellomtiden kan du synge en sang selv... 🎅🏼';
       el.style.display = 'block';
     }
 
     function placeholderDays(){
-      return Array.from({length:24}, function(_,i){
-        return {
-          title: (i+1) + '. desember',
-          image: 'assets/images/day' + String(i+1).padStart(2,'0') + '.webp',
-          text: '',
-          apple: '',
-          spotify: ''
-        };
-      });
+      return Array.from({length:24}, (_,i)=>({
+        title: `${i+1}. desember`,
+        image: `assets/images/day${String(i+1).padStart(2,'0')}.webp`,
+        text: '', apple: '', spotify: ''
+      }));
     }
 
     async function fetchJson(url){
@@ -439,20 +216,16 @@
           const data = await fetchJson(url);
           if(Array.isArray(data) && data.length){
             const base = placeholderDays();
-            return base.map(function(d,idx){
-              return Object.assign({}, d, data[idx] || {});
-            });
+            return base.map((d,idx)=>({ ...d, ...(data[idx]||{}) }));
           }
-        }catch(e){
-          // prøv neste
-        }
+        }catch(e){/* prøv neste */}
       }
       showFriendlyError();
       return placeholderDays();
     }
 
     function openModal(day,item){
-      const title = item && (item.title || item.date) ? (item.title || item.date) : (day + '. desember');
+      const title = item && (item.title || item.date) ? (item.title || item.date) : `${day}. desember`;
       modalTitle.textContent = title;
       modalText.innerHTML = formatModalText(item && item.text ? item.text : '');
 
@@ -478,48 +251,36 @@
     }
 
     function render(days){
-      const grid = document.getElementById('grid');
-      grid.innerHTML = '';
+      const grid=document.getElementById('grid');
+      grid.innerHTML='';
       for(let i=0;i<24;i++){
-        const d = days[i] || { title:(i+1)+'. desember' };
+        const d = days[i] || { title:`${i+1}. desember` };
         const day = i+1;
-        const card = document.createElement('button');
-        card.className = 'card' + (day>FIXED_TEST_DAY ? ' locked' : '');
-        card.type = 'button';
+        const card=document.createElement('button');
+        card.className='card'+(day>FIXED_TEST_DAY?' locked':'');
+        card.type='button';
         const icon = day<=FIXED_TEST_DAY
-          ? "<span class='status' aria-hidden='true'><svg viewBox='0 0 24 24'><path d='M12 2c-.8 0-1.4.6-1.4 1.4v1.6c-2.5.6-4.6 2.8-4.6 5.5 0 3.4-1.4 5-2 5.4h16c-.6-.4-2-2-2-5.4 0-2.7-2.1-4.9-4.6-5.5V3.4c0-.8-.6-1.4-1.4-1.4zM12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z'/></svg></span>"
-          : "<span class='status' aria-hidden='true'><svg viewBox='0 0 24 24'><rect x='5' y='10' width='14' height='10' rx='2'/><path d='M8 10V8a4 4 0 0 1 8 0v2'/></svg></span>";
-        card.innerHTML = icon + "<span class='num'>" + day + "</span>";
+          ? `<span class='status' aria-hidden='true'><svg viewBox='0 0 24 24'><path d='M12 2c-.8 0-1.4.6-1.4 1.4v1.6c-2.5.6-4.6 2.8-4.6 5.5 0 3.4-1.4 5-2 5.4h16c-.6-.4-2-2-2-5.4 0-2.7-2.1-4.9-4.6-5.5V3.4c0-.8-.6-1.4-1.4-1.4zM12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z'/></svg></span>`
+          : `<span class='status' aria-hidden='true'><svg viewBox='0 0 24 24'><rect x='5' y='10' width='14' height='10' rx='2'/><path d='M8 10V8a4 4 0 0 1 8 0v2'/></svg></span>`;
+        card.innerHTML = `${icon}<span class='num'>${day}</span>`;
         if(day>FIXED_TEST_DAY){
           card.disabled = true; // ikke klikkbar
         }else{
-          card.addEventListener('click', function(){
-            openModal(day,d);
-          });
+          card.addEventListener('click',()=>openModal(day,d));
         }
         grid.appendChild(card);
       }
     }
 
-    // Lukk-håndtering for hovedmodal
-    btnClose.addEventListener('click', function(){
-      modal.classList.add('hidden');
-    });
-    modal.addEventListener('click', function(e){
-      if(e.target === modal) modal.classList.add('hidden');
-    });
+    btnClose.addEventListener('click',()=>modal.classList.add('hidden'));
+    modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.add('hidden'); });
 
-    // Info-knapp / info-modal
     infoBtn.addEventListener('click', openInfo);
-    infoClose.addEventListener('click', function(){
-      infoModal.classList.add('hidden');
-    });
-    infoModal.addEventListener('click', function(e){
-      if(e.target === infoModal) infoModal.classList.add('hidden');
-    });
+    infoClose.addEventListener('click', ()=>infoModal.classList.add('hidden'));
+    infoModal.addEventListener('click', e=>{ if(e.target===infoModal) infoModal.classList.add('hidden'); });
 
-    (async function(){
-      const days = await loadDays();
+    (async()=>{
+      const days=await loadDays();
       render(days);
     })();
   </script>
