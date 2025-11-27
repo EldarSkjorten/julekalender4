@@ -142,19 +142,22 @@
   </div>
 
   <script>
-    // Dato-styrt åpning av luker
-// Overstyr for testing: sett til true for å åpne ALLE luker
-const DEBUG_ALWAYS_OPEN = true;
+  // Overstyr for testing: sett til true for å åpne ALLE luker
+const DEBUG_ALWAYS_OPEN = true;  // endre til false når du går "live"
 
+// Dato-styrt åpning av luker
 function isDoorOpen(day){
-  if(DEBUG_ALWAYS_OPEN) return false;
+  if (DEBUG_ALWAYS_OPEN) return true;
+
   const now = new Date();
   const m = now.getMonth();
   const d = now.getDate();
-  if(m < 11) return false;
-  if(m > 11) return true;
+  if (m < 11) return false;
+  if (m > 11) return true;
   return d >= day;
-} // test: åpne t.o.m. 8. des.
+}
+
+ // test: åpne t.o.m. 8. des.
     const DATA_URLS = ['data/days.json','./data/days.json'];
 
     const modal = document.getElementById('modal');
