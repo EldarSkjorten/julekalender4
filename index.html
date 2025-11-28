@@ -142,8 +142,8 @@
   </div>
 
   <script>
-  // Overstyr for testing: sett til true for å åpne ALLE luker
-const DEBUG_ALWAYS_OPEN = false;  // endre til false når du går "live"
+// Overstyr for testing: sett til true for å åpne ALLE luker
+const DEBUG_ALWAYS_OPEN = true;  // endre til false når du går "live"
 
 // Dato-styrt åpning av luker
 function isDoorOpen(day){
@@ -157,8 +157,7 @@ function isDoorOpen(day){
   return d >= day;
 }
 
- // test: åpne t.o.m. 8. des.
-    const DATA_URLS = ['data/days.json','./data/days.json'];
+const DATA_URLS = ['data/days.json','./data/days.json'];
 
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modal-title');
@@ -184,7 +183,6 @@ Her får du en salig blanding, og jeg fikk lyst til å legge inn noen ting som j
 
 GOD JUL!`;
 
-    // Formatterer tekst til avsnitt (alternativ 3)
     // Formatterer tekst til avsnitt (alternativ 3)
     function formatModalText(raw){
       if(!raw) return '';
@@ -216,10 +214,12 @@ GOD JUL!`;
     function placeholderDays(){
       return Array.from({length:24}, (_,i)=>({
         title: `${i+1}. desember`,
-        image: `assets/images/day${String(i+1).padStart(2,'0')}.webp`,
-        text: '', apple: '', spotify: ''
+        text: '',
+        apple: '',
+        spotify: ''
       }));
     }
+
 
     async function fetchJson(url){
       const res = await fetch(url,{cache:'no-store'});
