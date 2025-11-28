@@ -1,3 +1,32 @@
+<!--
+  📌 JULEKALENDER – KORTVERSJON (se fullversjon i README.md)
+
+  1) Endre innhold:
+     - All tekst i lukene + Apple/Spotify-lenker ligger i: data/days.json
+     - Endre "text", "apple" og "spotify" for hver dag.
+     - Tom streng ("") skjuler knappen.
+
+  2) Info-teksten (i egen modal):
+     - Endres i index.html: konstanten INFO_TEXT (skriv vanlig tekst med linjeskift)
+
+  3) Testmodus:
+     - Øverst i scriptet: const DEBUG_ALWAYS_OPEN = true;
+     - true = alle luker åpne + liten TESTMODUS-markør vises
+     - false = ekte datostyring (basert på dagens systemdato)
+
+  4) Datostyring (når DEBUG_ALWAYS_OPEN = false):
+     - Før desember: alt lukket
+     - I desember: luke n åpnes når datoen >= n
+     - Etter desember: alle luker åpne igjen
+
+  5) Gjenbruk neste år / for en ny person:
+     - Kopiér index.html + data-mappen til et nytt repo
+     - Endre tittel, info-tekst og data/days.json
+     - Sett opp GitHub Pages i det nye repoet
+
+  ℹ️ Full forklaring (detaljert guide) ligger i README.md
+-->
+
 <!doctype html>
 <html lang="no">
 <head>
