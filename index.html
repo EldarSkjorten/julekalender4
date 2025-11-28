@@ -67,6 +67,8 @@
     @media (hover:hover){.info-btn:hover{transform:translateY(-1px);background:rgba(15,23,42,.8);box-shadow:0 6px 14px rgba(0,0,0,.6);}}
     .info-btn:focus-visible{outline:3px solid #22c55e;outline-offset:2px;}
 
+    .debug-indicator{margin-top:6px;text-align:center;font-size:.8rem;color:#f97316;opacity:.9;display:none}
+
     header,main{position:relative;z-index:1}
 
     /* Modal for åpne luker */
@@ -99,6 +101,10 @@
     <button id="info-btn" class="info-btn" type="button" aria-label="Informasjon om julekalenderen">
       <span class="info-btn-inner">i</span>
     </button>
+  </div>
+
+  <div id="debug-indicator" class="debug-indicator" aria-hidden="true">
+    TESTMODUS – alle luker er åpne nå
   </div>
 
   <!-- Feil-/statusbanner (midtstilt) -->
@@ -169,6 +175,11 @@ const DATA_URLS = ['data/days.json','./data/days.json'];
     const infoText = document.getElementById('info-text');
     const infoBtn = document.getElementById('info-btn');
     const infoClose = document.getElementById('info-close');
+    const debugIndicator = document.getElementById('debug-indicator');
+
+    if (DEBUG_ALWAYS_OPEN && debugIndicator) {
+      debugIndicator.style.display = 'block';
+    }
 
     const INFO_TEXT = `Så gøy at du er inne i julekalenderen!
 
@@ -219,7 +230,6 @@ GOD JUL!`;
         spotify: ''
       }));
     }
-
 
     async function fetchJson(url){
       const res = await fetch(url,{cache:'no-store'});
